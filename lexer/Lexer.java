@@ -110,7 +110,7 @@ public class Lexer{
         return new Token("texto", resultado);
     }
 
-    public List<Token> analisar() {
+    public List<Token> analiseLexica() {
         List<Token> tokens = new ArrayList<>();
 
         while (charAtual != '\0'){
