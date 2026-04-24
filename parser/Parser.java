@@ -67,17 +67,13 @@ public class Parser{
                 return false;
             }
         }
-        else if(atribuir()){
-            if(token.tipo.equals("fim")){
-                token = getNextToken();
-                return true;
+        else if(token.tipo.equals("id")){
+            Token proximo = tokens.get(0); // lookahead 
+            if(proximo.tipo.equals("opCremento")){
+                crementar();
+            } else {
+                atribuir();
             }
-            else{
-                mensagem = "Instrução não finalizada, esperado ';'";
-                return false;
-            }
-        }
-        else if(crementar()){
             if(token.tipo.equals("fim")){
                 token = getNextToken();
                 return true;
@@ -88,7 +84,7 @@ public class Parser{
             }
         }
         else if(estruturaIf()){
-           return true;
+            return true;
         }
         else if(estruturaWhile()){
             return true;
@@ -445,21 +441,232 @@ public class Parser{
     }
 
     private boolean condicao(){
-        
+        if(termoE()){
+            return(condicaoResto());
+        }
+        return false;
     }
 
-    private boolean estruturaWhile(){
+    private boolean condicaoResto(){
+        if(token.tipo.equals("ou")){
+            token = getNextToken();
+            if(termoE()){
+                return condicaoResto();
+            }
+            else{
+                return false;
+            }
+        }
         return true;
+    }
+
+    private boolean termoE(){
+        if(relacional()){
+            return termoEResto();
+        }
+        return false;
+    }
+
+    private boolean termoEResto(){
+        if(token.tipo.equals("e")){
+            token = getNextToken();
+            if(relacional()){
+                return termoEResto();
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean relacional(){
+        if(token.tipo.equals("abreP")){
+            token = getNextToken();
+            if(condicao()){
+                if(token.tipo.equals("fechaP")){
+                    token = getNextToken();
+                    return true;
+                }
+                else{
+                    mensagem = "Esperado ')' para fechar a condição!";
+                    return false;
+                }
+            }
+            mensagem = "Condição inválida!";
+            return false;
+        }
+        else{
+            if(expressao()){
+                if(token.tipo.equals("opRelac")){
+                    token = getNextToken();
+                    return expressao();
+                }
+                else{
+                    mensagem = "Operador relacional esperado!";
+                    return false;
+                }
+            }
+            mensagem = "Expressão inválida na condição!";
+            return false;
+        }
+    }
+
+
+    private boolean estruturaWhile(){
+        if(token.tipo.equals("enquanto")){
+            token = getNextToken();
+            if(token.tipo.equals("abreP")){
+                token = getNextToken();
+                if(condicao()){
+                    if(token.tipo.equals("fechaP")){
+                        token = getNextToken();
+                        if(token.tipo.equals("abreC")){
+                            token = getNextToken();
+                            if(bloco()){
+                                if(token.tipo.equals("fechaC")){
+                                    token = getNextToken();
+                                    return true;
+                                }
+                                else{
+                                    mensagem = "Esperado '}' para fechar bloco!";
+                                    return false;
+                                }
+                            }
+                            else{
+                                return false;
+                            }
+                        }
+                        else{
+                            mensagem = "Esperado '{' para abrir bloco!";
+                            return false;
+                        }
+                    }
+                    else{
+                        mensagem = "Esperado ')' para fechar a condição!";
+                        return false;
+                    }
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                mensagem = "Esperado '(' após ENQUANTO!";
+                return false;
+            }
+        }
+        return false;
     }
 
     private boolean estruturaFor(){
-        return true;
+        if(token.tipo.equals("para")){
+            token = getNextToken();
+            if(token.tipo.equals("abreP")){
+                token = getNextToken();
+                if(comeco()){
+                    if(token.tipo.equals("fim")){
+                        token = getNextToken();
+                        if(condicao()){
+                            if(token.tipo.equals("fim")){
+                                token = getNextToken();
+                                if(finall()){
+                                    if(token.tipo.equals("fechaP")){
+                                        token = getNextToken();
+                                        if(token.tipo.equals("abreC")){
+                                            token = getNextToken();
+                                            if(bloco()){
+                                                if(token.tipo.equals("fechaC")){
+                                                    token = getNextToken();
+                                                    return true;
+                                                }
+                                                mensagem = "Esperado '}' para fechar o FOR!";
+                                                return false;
+                                            }
+                                            return false;
+                                        }
+                                        mensagem = "Esperado '{' para abrir o bloco do FOR!";
+                                        return false;
+                                    }
+                                    mensagem = "Esperado ')' para fechar o FOR!";
+                                    return false;
+                                }
+                                return false;
+                            }
+                            mensagem = "Esperado ';' após a condição do FOR!";
+                            return false;
+                        }
+                        mensagem = "Condição inválida no FOR!";
+                        return false;
+                    }
+                    mensagem = "Esperado ';' após o início do FOR!";
+                    return false;
+                }
+                return false;
+            }
+            mensagem = "Esperado '(' após PARA!";
+            return false;
+        }
+        return false;
+    }
+
+    private boolean comeco(){
+        if(declarar()){
+            return true;
+        }
+        return atribuir();
+    }
+
+    private boolean finall(){
+        if(token.tipo.equals("id")){
+            // lookahead
+            Token proximo = tokens.get(0);
+            if(proximo.tipo.equals("opCremento")){
+                return crementar();
+            }
+            else{
+                return atribuir();
+            }
+        }
+        mensagem = "Esperado incremento ou atribuição no FOR!";
+        return false;
     }
 
     private boolean estruturaEscrever(){
-        return true;
+        if(token.tipo.equals("escreva")){
+            token = getNextToken();
+            if(token.tipo.equals("abreP")){
+                token = getNextToken();
+                if(expressao()){
+                    if(restoTexto()){
+                        if(token.tipo.equals("fechaP")){
+                            token = getNextToken();
+                            return true;
+                        }
+                        mensagem = "Esperado ')' para fechar o ESCREVA!";
+                        return false;
+                    }
+                    return false;
+                }
+                mensagem = "Esperado uma expressão após '('!";
+                return false;
+            }
+            mensagem = "Esperado '(' após ESCREVA!";
+            return false;
+        }
+        return false;
     }
 
-
+    private boolean restoTexto(){
+        if(token.lexema.equals("+")){
+            token = getNextToken();
+            if(expressao()){
+                return restoTexto();
+            }
+            mensagem = "Esperado uma expressão após '+'!";
+            return false;
+        }
+        return true;
+    }
 }
 

@@ -59,18 +59,22 @@ termoE --> relacional termoEResto
 
 termoEResto --> e relacional termoEResto | ε
 
-relacional --> expressao opRelac expressao | '(' condicao ')'
+relacional --> '(' condicao ')' | expressao opRelac expressao
 
 
 
 
 estruturaWhile --> enquanto '(' condicao ')' '{' bloco '}'
 
-estruturaFor --> para '(' (atribuir|declarar) fim condicao fim (atribuir|crementar) ')' '{' bloco '}'
+estruturaFor --> para '(' comeco fim condicao fim finall ')' '{' bloco '}'
+
+comeco = declarar | atribuir
+
+finall = crementar | atribuir
 
 
 
 
-estruturaEscrever --> escreva '('  (expressao) restoTexto ')'
+estruturaEscrever --> escreva '('  expressao restoTexto ')'
 
-restoTexto --> '+' (expressao) restoTexto | ε
+restoTexto --> '+' expressao restoTexto | ε

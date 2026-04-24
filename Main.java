@@ -17,7 +17,6 @@ public class Main {
             
             System.out.println("Regras:");
             Parser parser = new Parser(tokens);
-
             parser.analiseSintatica();
         }
         catch(RuntimeException e) {
