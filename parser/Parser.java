@@ -70,17 +70,28 @@ public class Parser{
         else if(token.tipo.equals("id")){
             Token proximo = tokens.get(0); // lookahead 
             if(proximo.tipo.equals("opCremento")){
-                crementar();
-            } else {
-                atribuir();
-            }
-            if(token.tipo.equals("fim")){
-                token = getNextToken();
-                return true;
+                if(crementar()){
+                    if(token.tipo.equals("fim")){
+                        token = getNextToken();
+                        return true;
+                    }
+                    else{
+                        mensagem = "Esperado ';'";
+                        return false;
+                    }
+                }
             }
             else{
-                mensagem = "Instrução não finalizada, esperado ';'";
-                return false;
+                if(atribuir()){
+                    if(token.tipo.equals("fim")){
+                        token = getNextToken();
+                        return true;
+                    }
+                    else{
+                        mensagem = "Esperado ';'";
+                        return false;
+                    }
+                }
             }
         }
         else if(estruturaIf()){
@@ -507,7 +518,6 @@ public class Parser{
                     return false;
                 }
             }
-            mensagem = "Expressão inválida na condição!";
             return false;
         }
     }
@@ -618,8 +628,7 @@ public class Parser{
     }
 
     private boolean finall(){
-        if(token.tipo.equals("id")){
-            // lookahead
+        if(token.tipo.equals("id")){ // lookahead
             Token proximo = tokens.get(0);
             if(proximo.tipo.equals("opCremento")){
                 return crementar();
@@ -648,7 +657,7 @@ public class Parser{
                     }
                     return false;
                 }
-                mensagem = "Esperado uma expressão após '('!";
+                mensagem = "Esperado uma expressão após '('";
                 return false;
             }
             mensagem = "Esperado '(' após ESCREVA!";
@@ -663,10 +672,9 @@ public class Parser{
             if(expressao()){
                 return restoTexto();
             }
-            mensagem = "Esperado uma expressão após '+'!";
+            mensagem = "Esperado uma expressão após '+'";
             return false;
         }
         return true;
     }
 }
-

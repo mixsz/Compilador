@@ -4,7 +4,7 @@ import parser.*;
 
 public class Main {
     public static void main(String[] args) {
-        String codigo = "SE (x > 5) { x = 1; }";
+        String codigo = "INICIE: SE (x > 5) { x = 1; }";
 
         try{
             // LEXER
