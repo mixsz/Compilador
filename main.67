@@ -1,0 +1,8 @@
+INICIE:
+    INTEIRO x;
+    SE(x == 2){
+        ESCREVA("dois");
+    }
+    SENAO{
+        ESCREVA("nao dois");
+    }

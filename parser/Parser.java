@@ -30,6 +30,7 @@ public class Parser{
                 return arvore;
             }
         }
+        if(mensagem == null) mensagem = "Token em excesso -> '" + token.lexema + "'";
         throw new RuntimeException("ERRO SINTATICO: " + mensagem);
     }
 
@@ -72,7 +73,7 @@ public class Parser{
                 return true;
             }
             else{
-                mensagem = "Instrução não finalizada, esperado ';'";
+                if(mensagem == null) mensagem = "Instrução não finalizada, esperado ';'";
                 return false;
             }
         }
@@ -163,7 +164,7 @@ public class Parser{
             }
         }
         if(mensagem == null && !token.tipo.equals("fechaC") && !token.tipo.equals("EOF")){  
-            mensagem = "Instrução inválida: '" + token.lexema + "'";
+            mensagem = "Token em excesso -> '" + token.lexema + "'";
         }
         return false;
     }
@@ -315,7 +316,7 @@ public class Parser{
                     return inicializar(noDeclarar);
                 }
                 else{
-                    mensagem = "Esperado um identificador apos o tipo";
+                    mensagem = "Esperado um identificador após o tipo";
                     return false;
                 }
             }
@@ -329,6 +330,10 @@ public class Parser{
             noInicializar.addNode(token.lexema);
             token = getNextToken();
             return atributo(noInicializar);
+        }
+        if(!token.tipo.equals("fim") && !token.tipo.equals("opAtrib")){ // caso INTEIRO x 1;
+            mensagem = "Declaração inválida!";
+            return false;
         }
         return true;
     }
@@ -371,14 +376,16 @@ public class Parser{
         if(token.tipo.equals("id")){
             Node noAtribuir = pai.addNode("atribuir");
             noAtribuir.addNode(token.lexema);
+            Token a = token;
             token = getNextToken();
             if(token.tipo.equals("opAtrib")){
                 noAtribuir.addNode(token.lexema);
                 token = getNextToken();
+                a = null;
                 return atributo(noAtribuir);
             }
             else{
-                mensagem = "Atribuição inválida!";
+                mensagem = "Instrução inválida após '"+a.lexema+"'";
                 return false;
             }
         }

@@ -1,11 +1,16 @@
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+import java.io.IOException;
 import lexer.*;
 import parser.*;
 
 public class Main {
     public static void main(String[] args) {
-        String codigo = "INICIE: PARA (INTEIRO i = 0; i < 10; i++) { x++; }";
+        // String codigo = "INICIE: PARA (i = 0; i < 10; i++) { x++; }";
+
         try{
+            String codigo = Files.readString(Path.of("main.67"));
             System.out.println("\nTokens:");
             Lexer lexer = new Lexer(codigo);
             List<Token> tokens = lexer.analiseLexica();
@@ -14,6 +19,9 @@ public class Main {
             Parser parser = new Parser(tokens);
             Tree arvore = parser.analiseSintatica();
             arvore.printTree();
+        }
+        catch (IOException e) {
+            System.err.println("Erro ao ler arquivo: " + e.getMessage());
         }
         catch(RuntimeException e) {
             System.err.println(e.getMessage()); 
