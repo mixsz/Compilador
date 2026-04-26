@@ -54,24 +54,12 @@ public class Parser{
     }
 
     private boolean bloco(Node pai){
-        // FIRST de instrucao
-        if(token.tipo.equals("tipoInt") ||
-        token.tipo.equals("tipoFloat") ||
-        token.tipo.equals("tipoString") ||
-        token.tipo.equals("id") ||
-        token.tipo.equals("se") ||
-        token.tipo.equals("enquanto") ||
-        token.tipo.equals("para") ||
-        token.tipo.equals("escreva") ||
-        token.tipo.equals("comente") ||
-        token.tipo.equals("quebre") ||
-        token.tipo.equals("continue")){
-            Node noBloco = pai.addNode("bloco");
-            if(instrucao(noBloco)){
-                return bloco(pai);
-            }
-        return false;
+        Node noBloco = new Node("bloco");
+        if(instrucao(noBloco)){
+            pai.addNode(noBloco);
+            return bloco(pai);
         }
+        if(mensagem != null) return false;
         return true;
     }
 
@@ -174,12 +162,22 @@ public class Parser{
                 return false;
             }
         }
+        if(mensagem == null && !token.tipo.equals("fechaC") && !token.tipo.equals("EOF")){  
+            mensagem = "Instrução inválida: '" + token.lexema + "'";
+        }
         return false;
     }
 
     private boolean expressao(Node pai){
-        Node noExpressao = pai.addNode("expressao");
-        return soma(noExpressao);
+        //first
+        if(token.tipo.equals("inteiro") || token.tipo.equals("decimal") ||
+            token.tipo.equals("id") || token.tipo.equals("abreP") ||
+            token.tipo.equals("texto") ||
+            (token.tipo.equals("opArit") && token.lexema.equals("-"))){
+            Node noExpressao = pai.addNode("expressao");
+            return soma(noExpressao);
+        }
+        return false;
     }
 
     private boolean soma(Node pai){
@@ -198,9 +196,8 @@ public class Parser{
             if(mult(noSomaResto)){
                 return somaResto(pai);
             }
-            else{
-                return false;
-            }
+            if(mensagem == null) mensagem = "Expressão inválida após '+'";
+            return false;
         }
         else if(token.tipo.equals("opArit") && token.lexema.equals("-")){
             Node noSomaResto = pai.addNode("somaResto");
@@ -209,9 +206,8 @@ public class Parser{
             if(mult(noSomaResto)){
                 return somaResto(pai);
             }
-            else{
-                return false;
-            }
+            if(mensagem == null) mensagem = "Expressão inválida após '-'";
+            return false;
         }
         return true;
     }
@@ -225,16 +221,15 @@ public class Parser{
     }
 
     private boolean multResto(Node pai){
-         if(token.tipo.equals("opArit") && token.lexema.equals("*")){
+        if(token.tipo.equals("opArit") && token.lexema.equals("*")){
             Node noMultResto = pai.addNode("multResto");
             noMultResto.addNode(token.lexema);
             token = getNextToken();
             if(mult(noMultResto)){
                 return multResto(pai);
             }
-            else{
-                return false;
-            }
+            if(mensagem == null) mensagem = "Expressão inválida após '*'";
+            return false;
         }
         else if(token.tipo.equals("opArit") && token.lexema.equals("/")){
             Node noMultResto = pai.addNode("multResto");
@@ -243,9 +238,8 @@ public class Parser{
             if(mult(noMultResto)){
                 return multResto(pai);
             }
-            else{
-                return false;
-            }
+            if(mensagem == null) mensagem = "Expressão inválida após '/'";
+            return false;
         }
         return true;
     }
@@ -299,8 +293,8 @@ public class Parser{
     }
 
     private boolean tipos(Node pai){
-        Node noTipos = pai.addNode("tipos");
         if(token.tipo.equals("tipoInt") || token.tipo.equals("tipoFloat") || token.tipo.equals("tipoString")){
+            Node noTipos = pai.addNode("tipos");
             noTipos.addNode(token.lexema);
             token = getNextToken();
             return true;
@@ -309,16 +303,21 @@ public class Parser{
     }
 
     private boolean declarar(Node pai){
-        Node noDeclarar = pai.addNode("declarar");
-        if(tipos(noDeclarar)){
-            if(token.tipo.equals("id")){
-                noDeclarar.addNode(token.lexema);
-                token = getNextToken();
-                return inicializar(noDeclarar);
-            }
-            else{
-                mensagem = "Esperado um identificador apos o tipo";
-                return false;
+        // first
+        if(token.tipo.equals("tipoInt") || 
+        token.tipo.equals("tipoFloat") || 
+        token.tipo.equals("tipoString")){
+            Node noDeclarar = pai.addNode("declarar");
+            if(tipos(noDeclarar)){
+                if(token.tipo.equals("id")){
+                    noDeclarar.addNode(token.lexema);
+                    token = getNextToken();
+                    return inicializar(noDeclarar);
+                }
+                else{
+                    mensagem = "Esperado um identificador apos o tipo";
+                    return false;
+                }
             }
         }
         return false;
@@ -364,12 +363,13 @@ public class Parser{
             mensagem = "Esperado '(' após LEIA!";
             return false;
         }
+        if(mensagem == null) mensagem = "Erro de atribuição!";
         return false;
     }
 
     private boolean atribuir(Node pai){
-        Node noAtribuir = pai.addNode("atribuir");
         if(token.tipo.equals("id")){
+            Node noAtribuir = pai.addNode("atribuir");
             noAtribuir.addNode(token.lexema);
             token = getNextToken();
             if(token.tipo.equals("opAtrib")){
@@ -386,8 +386,8 @@ public class Parser{
     }
 
     private boolean comentar(Node pai){
-        Node noComentar = pai.addNode("comentar");
         if(token.tipo.equals("comente")){
+            Node noComentar = pai.addNode("comentar");
             noComentar.addNode(token.lexema);
             token = getNextToken();
             if(token.tipo.equals("texto")){
@@ -404,8 +404,8 @@ public class Parser{
     }
 
     private boolean crementar(Node pai){
-        Node noCrementar = pai.addNode("crementar");
         if(token.tipo.equals("id")){
+            Node noCrementar = pai.addNode("crementar");
             noCrementar.addNode(token.lexema);
             token = getNextToken();
             if(token.tipo.equals("opCremento")){
@@ -421,8 +421,8 @@ public class Parser{
     }
 
     private boolean estruturaIf(Node pai){
-        Node noEstruturaIf = pai.addNode("estruturaIf");
         if(token.tipo.equals("se")){
+            Node noEstruturaIf = pai.addNode("estruturaIf");
             noEstruturaIf.addNode(token.lexema);
             token = getNextToken();
             if(token.tipo.equals("abreP")){
@@ -454,7 +454,7 @@ public class Parser{
                     mensagem = "Esperado ')' para fechar a condicao do SE";
                     return false;
                 }
-                mensagem = "Condicao invalida no SE";
+                if(mensagem == null) mensagem = "Condicao invalida no SE";
                 return false;
             }
             mensagem = "Esperado '(' apos SE";
@@ -494,7 +494,7 @@ public class Parser{
                     mensagem = "Esperado ')' para fechar a condicao do SENAOSE";
                     return false;
                 }
-                mensagem = "Condicao invalida no SENAOSE";
+                if(mensagem == null) mensagem = "Condicao invalida no SENAOSE";
                 return false;
             }
             mensagem = "Esperado '(' apos SENAOSE";
@@ -577,6 +577,15 @@ public class Parser{
             else{
                 return false;
             }
+        }
+        if(!token.tipo.equals("ou") && 
+        !token.tipo.equals("fechaP") && 
+        !token.tipo.equals("abreC") &&  
+        !token.tipo.equals("fechaC") &&
+        !token.tipo.equals("fim") &&
+        !token.tipo.equals("EOF")){
+            mensagem = "Esperado 'E' ou 'OU'!";
+            return false;
         }
         return true;
     }
@@ -711,10 +720,10 @@ public class Parser{
                                 }
                                 return false;
                             }
-                            mensagem = "Esperado ';' após a condição do FOR!";
+                            if(mensagem == null) mensagem = "Esperado ';' após a condição do FOR!";
                             return false;
                         }
-                        mensagem = "Condição inválida no FOR!";
+                        if(mensagem == null) mensagem = "Condição inválida no FOR!";
                         return false;
                     }
                     mensagem = "Esperado ';' após o início do FOR!";
@@ -752,8 +761,8 @@ public class Parser{
     }
 
     private boolean estruturaEscrever(Node pai){
-        Node noEstruturaEscrever = pai.addNode("estruturaEscrever");
         if(token.tipo.equals("escreva")){
+            Node noEstruturaEscrever = pai.addNode("estruturaEscrever");
             noEstruturaEscrever.addNode(token.lexema);
             token = getNextToken();
             if(token.tipo.equals("abreP")){

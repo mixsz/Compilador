@@ -4,9 +4,8 @@ import parser.*;
 
 public class Main {
     public static void main(String[] args) {
-        String codigo = "INICIE: ENQUANTO (x > 5) { i--; }";
+        String codigo = "INICIE: PARA (INTEIRO i = 0; i < 10; i++) { x++; }";
         try{
-            // LEXER
             System.out.println("\nTokens:");
             Lexer lexer = new Lexer(codigo);
             List<Token> tokens = lexer.analiseLexica();
