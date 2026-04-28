@@ -385,7 +385,7 @@ public class Parser{
                 return atributo(noAtribuir);
             }
             else{
-                mensagem = "Instrução inválida após '" + a.lexema + "'";
+                mensagem = "Instrução inválida após '"+a.lexema+"'";
                 return false;
             }
         }
@@ -458,7 +458,7 @@ public class Parser{
                         if(mensagem == null) mensagem = "Esperado '{' para abrir o bloco do SE";
                         return false;
                     }
-                    mensagem = "Esperado ')' para fechar a condicao do SE";
+                    mensagem = "fechar a condicao do SE";
                     return false;
                 }
                 if(mensagem == null) mensagem = "Condicao invalida no SE";
@@ -787,7 +787,7 @@ public class Parser{
                     }
                     return false;
                 }
-                mensagem = "Esperado uma expressão após '('";
+                if(mensagem == null) mensagem = "Esperado uma expressão após '('";
                 return false;
             }
             mensagem = "Esperado '(' após ESCREVA!";
@@ -807,7 +807,7 @@ public class Parser{
             else{
                 mensagem = "Esperado uma expressão após '+'";
                 return false;
-            }
+            }      
         }
         if(token.tipo.equals("id") || token.tipo.equals("texto")){
             mensagem = "Esperado '+' para concatenação dos argumentos da instrução ESCREVA";
