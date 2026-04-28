@@ -4,5 +4,5 @@ INICIE:
         ESCREVA("dois");
     }
     SENAO{
-        ESCREVA("nao dois";
+        ESCREVA("nao dois");
     }

@@ -7,7 +7,6 @@ import parser.*;
 
 public class Main {
     public static void main(String[] args) {
-        // String codigo = "INICIE: PARA (i = 0; i < 10; i++) { x++; }";
 
         try{
             String codigo = Files.readString(Path.of("main.67"));
@@ -20,10 +19,10 @@ public class Main {
             Tree arvore = parser.analiseSintatica();
             arvore.printTree();
         }
-        catch (IOException e) {
+        catch(IOException e){
             System.err.println("Erro ao ler arquivo: " + e.getMessage());
         }
-        catch(RuntimeException e) {
+        catch(RuntimeException e){
             System.err.println(e.getMessage()); 
         }
     }

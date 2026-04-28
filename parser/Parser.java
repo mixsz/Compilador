@@ -783,7 +783,7 @@ public class Parser{
                             return true;
                         }
                         if(mensagem == null) mensagem = "Esperado ')' para fechar o ESCREVA!";
-                        return false;
+                        return false;       
                     }
                     return false;
                 }
