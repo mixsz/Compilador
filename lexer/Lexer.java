@@ -226,8 +226,7 @@ public class Lexer{
             if(charAtual == ';') { tokens.add(new Token("fim",    ";")); avanca(); continue; }
             if(charAtual == ':') { tokens.add(new Token("doisP",  ":")); avanca(); continue; }
 
-            System.out.println("Erro léxico: caractere inesperado '" + charAtual + "'");
-            avanca();
+            throw new RuntimeException("Erro léxico: caractere inesperado '" + charAtual + "'"); // estava sout
         }
 
         tokens.add(new Token("EOF", "$"));

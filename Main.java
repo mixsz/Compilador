@@ -10,6 +10,7 @@ public class Main {
 
         try{
             String codigo = Files.readString(Path.of("main.67"));
+
             System.out.println("\nTokens:");
             Lexer lexer = new Lexer(codigo);
             List<Token> tokens = lexer.analiseLexica();
@@ -18,6 +19,11 @@ public class Main {
             Parser parser = new Parser(tokens);
             Tree arvore = parser.analiseSintatica();
             arvore.printTree();
+
+            CodeGenerator gerador = new CodeGenerator(arvore);
+            String codigoGo = gerador.traduz();
+            Files.writeString(Path.of("saida.go"), codigoGo);
+
         }
         catch(IOException e){
             System.err.println("Erro ao ler arquivo: " + e.getMessage());

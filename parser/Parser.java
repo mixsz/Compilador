@@ -495,7 +495,7 @@ public class Parser{
                                 return false;
                             }
                         }
-                        mensagem = "Esperado '{' para abrir o bloco do SENAOSE";
+                        if(mensagem == null) mensagem = "Esperado '{' para abrir o bloco do SENAOSE";;
                         return false;
                     }
                     mensagem = "Esperado ')' para fechar a condicao do SENAOSE";

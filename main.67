@@ -1,8 +1,21 @@
 INICIE:
-    INTEIRO x;
-    SE(x == 2){
-        ESCREVA("dois");
+    INTEIRO x = 1;
+    INTEIRO y = 2;
+    INTEIRO z = 99;
+    SE(x<10){
+        SE(y>1 E z != 99){
+            x = 99;
+        }
+        SENAOSE(y==0){
+            x = 0;
+        }
+        SENAO{
+            x = 1;
+        }
+    }
+    SENAOSE(x==5){
+        INTEIRO z = 3;
     }
     SENAO{
-        ESCREVA("nao dois");
+        y = 0;
     }
