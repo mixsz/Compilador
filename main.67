@@ -2,6 +2,7 @@ INICIE:
     INTEIRO x = 1;
     INTEIRO y = 2;
     INTEIRO z = 99;
+    TEXTO a = "afafawfds";
     SE(x<10){
         SE(y>1 E z != 99){
             x = 99;
@@ -10,11 +11,12 @@ INICIE:
             x = 0;
         }
         SENAO{
-            x = 1;
+            x++;
+            a = "oi";
         }
     }
     SENAOSE(x==5){
-        INTEIRO z = 3;
+        z = 3;
     }
     SENAO{
         y = 0;

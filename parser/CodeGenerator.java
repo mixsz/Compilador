@@ -88,7 +88,11 @@ public class CodeGenerator {
             if(no.nome.equals("OU")){
                 return " || ";
             }
+          
             return no.nome;
+        }
+        if(no.nome.equals("id")){
+            return no.nodes.get(0).nome;
         }
         
         String resultado = "";
@@ -132,8 +136,8 @@ public class CodeGenerator {
                 }
                 valor = buscaFolha(atributo);
             }
-            else{ // id sempre folha
-                id = filho.nome;
+            else if(filho.nome.equals("id")){
+                id = filho.nodes.get(0).nome;
             }
         }
         if(valor == null){
@@ -149,7 +153,7 @@ public class CodeGenerator {
         String valor = "";
 
         for(Node filho : no.nodes){
-            if(filho.nome.equals("=")){
+            if(filho.nome.equals("opAtrib")){
                 continue;
             }
             else if(filho.nome.equals("atributo")){
@@ -161,8 +165,8 @@ public class CodeGenerator {
                 }
                 valor = buscaFolha(atributo);
             }
-            else{
-                id = filho.nome;
+            else if(filho.nome.equals("id")){
+                id = filho.nodes.get(0).nome;
             }
         }
 
@@ -170,8 +174,8 @@ public class CodeGenerator {
     }
 
     private void gerarCrementar(Node no){
-        String cremento = no.nodes.get(1).nome;
-        String id = no.nodes.get(0).nome;
+        String cremento = no.nodes.get(1).nodes.get(0).nome;
+        String id = no.nodes.get(0).nodes.get(0).nome;
 
         codigo += tabs() + id + cremento + "\n";
     }

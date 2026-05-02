@@ -192,7 +192,8 @@ public class Parser{
     private boolean somaResto(Node pai){
         if(token.tipo.equals("opArit") && token.lexema.equals("+")){
             Node noSomaResto = pai.addNode("somaResto");
-            noSomaResto.addNode(token.lexema);
+            Node noOpArit = noSomaResto.addNode("opArit");
+            noOpArit.addNode(token.lexema);
             token = getNextToken();
             if(mult(noSomaResto)){
                 return somaResto(pai);
@@ -202,7 +203,8 @@ public class Parser{
         }
         else if(token.tipo.equals("opArit") && token.lexema.equals("-")){
             Node noSomaResto = pai.addNode("somaResto");
-            noSomaResto.addNode(token.lexema);
+            Node noOpArit = noSomaResto.addNode("opArit");
+            noOpArit.addNode(token.lexema);
             token = getNextToken();
             if(mult(noSomaResto)){
                 return somaResto(pai);
@@ -224,7 +226,8 @@ public class Parser{
     private boolean multResto(Node pai){
         if(token.tipo.equals("opArit") && token.lexema.equals("*")){
             Node noMultResto = pai.addNode("multResto");
-            noMultResto.addNode(token.lexema);
+            Node noOpArit = noMultResto.addNode("opArit");
+            noOpArit.addNode(token.lexema);
             token = getNextToken();
             if(mult(noMultResto)){
                 return multResto(pai);
@@ -234,7 +237,8 @@ public class Parser{
         }
         else if(token.tipo.equals("opArit") && token.lexema.equals("/")){
             Node noMultResto = pai.addNode("multResto");
-            noMultResto.addNode(token.lexema);
+            Node noOpArit = noMultResto.addNode("opArit");
+            noOpArit.addNode(token.lexema);
             token = getNextToken();
             if(mult(noMultResto)){
                 return multResto(pai);
@@ -248,17 +252,20 @@ public class Parser{
     private boolean valor(Node pai){
         Node noValor = pai.addNode("valor");
         if(token.tipo.equals("inteiro")){
-            noValor.addNode(token.lexema);
+            Node noInteiro = noValor.addNode("inteiro");
+            noInteiro.addNode(token.lexema);
             token = getNextToken();
             return true;
         }
         else if(token.tipo.equals("decimal")){
-            noValor.addNode(token.lexema);
+            Node noInteiro = noValor.addNode("decimal");
+            noInteiro.addNode(token.lexema);
             token = getNextToken();
             return true;
         }
          else if(token.tipo.equals("id")){
-            noValor.addNode(token.lexema);
+            Node noId = noValor.addNode("id");
+            noId.addNode(token.lexema);
             token = getNextToken();
             return true;
         }
@@ -311,7 +318,8 @@ public class Parser{
             Node noDeclarar = pai.addNode("declarar");
             if(tipos(noDeclarar)){
                 if(token.tipo.equals("id")){
-                    noDeclarar.addNode(token.lexema);
+                    Node noId = noDeclarar.addNode("id");
+                    noId.addNode(token.lexema);
                     token = getNextToken();
                     return inicializar(noDeclarar);
                 }
@@ -327,7 +335,8 @@ public class Parser{
     private boolean inicializar(Node pai){
         if(token.tipo.equals("opAtrib")){
             Node noInicializar = pai.addNode("inicializar");
-            noInicializar.addNode(token.lexema);
+            Node noOpAtrib = noInicializar.addNode("opAtrib");
+            noOpAtrib.addNode(token.lexema);
             token = getNextToken();
             return atributo(noInicializar);
         }
@@ -375,11 +384,13 @@ public class Parser{
     private boolean atribuir(Node pai){
         if(token.tipo.equals("id")){
             Node noAtribuir = pai.addNode("atribuir");
-            noAtribuir.addNode(token.lexema);
+            Node noId = noAtribuir.addNode("id");
+            noId.addNode(token.lexema);
             Token a = token;
             token = getNextToken();
             if(token.tipo.equals("opAtrib")){
-                noAtribuir.addNode(token.lexema);
+                Node noOpAtrib = noAtribuir.addNode("opAtrib");
+                noOpAtrib.addNode(token.lexema);
                 token = getNextToken();
                 a = null;
                 return atributo(noAtribuir);
@@ -413,10 +424,12 @@ public class Parser{
     private boolean crementar(Node pai){
         if(token.tipo.equals("id")){
             Node noCrementar = pai.addNode("crementar");
-            noCrementar.addNode(token.lexema);
+            Node noId = noCrementar.addNode("id");
+            noId.addNode(token.lexema);
             token = getNextToken();
             if(token.tipo.equals("opCremento")){
-                noCrementar.addNode(token.lexema);
+                Node noOpCremento = noCrementar.addNode("opCremento");
+                noOpCremento.addNode(token.lexema);
                 token = getNextToken();
                 return true;
             }
@@ -619,7 +632,8 @@ public class Parser{
         else{
             if(expressao(noRelacional)){
                 if(token.tipo.equals("opRelac")){
-                    noRelacional.addNode(token.lexema);
+                    Node noOpRelac = noRelacional.addNode("opRelac");
+                    noOpRelac.addNode(token.lexema);
                     token = getNextToken();
                     return expressao(noRelacional);
                 }
