@@ -55,7 +55,7 @@ public class CodeGenerator {
                 break;
 
             case "estruturaFor":
-                // gerarEstruturaFor(no);
+                gerarEstruturaFor(no);
                 break;
 
             case "QUEBRE":
@@ -67,11 +67,11 @@ public class CodeGenerator {
                 break;
 
             case "estruturaEscrever":
-                // gerarEstruturaEscrever(no);
+                gerarEstruturaEscrever(no);
                 break;
 
             case "comentar":
-                // gerarComentar(no);
+                gerarComentar(no);
                 break;
             
             default:
@@ -242,7 +242,87 @@ public class CodeGenerator {
                 gerarFilhos(filho);
             }
         }
-         tabs--;
+        tabs--;
         codigo+= tabs() + "}\n";
+    }
+
+    private void gerarEstruturaFor(Node no){
+        for(Node filho : no.nodes){
+            if(filho.nome.equals("comeco")){
+                codigo += geraComeco(filho);
+            }
+            else if(filho.nome.equals("condicao")){
+                codigo += buscaFolha(filho) + ";";
+            }
+            else if(filho.nome.equals("finall")){
+                codigo += buscaFolha(filho) + "{\n";
+                tabs++;
+            }
+            else if(filho.nome.equals("bloco")){
+                gerarFilhos(filho);
+            }
+        }
+        tabs--;
+        codigo += tabs() + "}\n";
+    }
+
+    private String geraComeco(Node noComeco){
+        Node noDeclarar = noComeco.nodes.get(0); // verifica se é declararacao de variavel ou atribuir
+        
+        if(noDeclarar.nome.equals("declarar")){
+            String id = "";
+            String valor = "";
+            for(Node filho : noDeclarar.nodes){
+                if(filho.nome.equals("id")){
+                    id = filho.nodes.get(0).nome;
+                }
+                else if(filho.nome.equals("inicializar")){
+                    valor = buscaFolha(filho.nodes.get(1)); // pula o opAtrib
+                }
+            }
+            return tabs() + "for " + id + " := " + valor + "; ";
+        }
+        else{ 
+            return tabs() + "for " + buscaFolha(noDeclarar) + "; ";
+        }
+    }
+
+    private void gerarEstruturaEscrever(Node no){
+        fmt = true;
+        for(Node filho : no.nodes){
+            if(filho.nome.equals("expressao")){
+                codigo += tabs() + "fmt.Println(" + buscaEscrever(filho) + ")\n";
+            }
+        }
+    }
+
+    private String buscaEscrever(Node no){ // esse metodo serve para evitar que o '+' de uma soma seja alterado por ','
+        if(no.nome.equals("soma")){
+            String resultado = buscaFolha(no.nodes.get(0)); // primeiro mult
+            for(Node filho : no.nodes){
+                if(filho.nome.equals("somaResto")){
+                    // pula o opArit e pega o mult
+                    resultado += ", " + buscaFolha(filho.nodes.get(1));
+                }
+            }
+            return resultado;
+        }
+        String resultado = "";
+        for(Node filho : no.nodes){
+            resultado += buscaEscrever(filho);
+        }
+        return resultado;
+    }
+
+    private void gerarComentar(Node no){
+        String texto = "";
+        for(Node filho : no.nodes){
+            if(filho.nome.equals("texto")){
+                texto = buscaFolha(filho);
+            }
+        }
+        // remove as aspas do texto
+        texto = texto.substring(1, texto.length() - 1);
+        codigo += tabs() + "// " + texto + "\n";
     }
 }

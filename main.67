@@ -27,3 +27,8 @@ INICIE:
             QUEBRE;
         }
     }
+    PARA(INTEIRO x = 0; x < 5; x++){
+        y++;
+    }
+    ESCREVA("oi" + x + "a");
+    COMENTE "OI";

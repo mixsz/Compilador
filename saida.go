@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func main(){
 	var x int = 1
 	var y int = 2
@@ -25,4 +27,9 @@ func main(){
 			break
 		}
 	}
+	for x := 0; x<5;x++{
+		y++
+	}
+	fmt.Println("oi", x, "a")
+	// OI
 }
