@@ -235,7 +235,7 @@ public class CodeGenerator {
     private void gerarEstruturaWhile(Node no){
         for(Node filho : no.nodes){
             if(filho.nome.equals("condicao")){
-                codigo += tabs() + "for " + buscaFolha(filho) + "{\n";
+                codigo += tabs() + "for " + buscaFolha(filho) + " {\n";
                 tabs++;
             }
             else if(filho.nome.equals("bloco")){
@@ -252,10 +252,10 @@ public class CodeGenerator {
                 codigo += geraComeco(filho);
             }
             else if(filho.nome.equals("condicao")){
-                codigo += buscaFolha(filho) + ";";
+                codigo += buscaFolha(filho) + "; ";
             }
             else if(filho.nome.equals("finall")){
-                codigo += buscaFolha(filho) + "{\n";
+                codigo += buscaFolha(filho) + " {\n";
                 tabs++;
             }
             else if(filho.nome.equals("bloco")){

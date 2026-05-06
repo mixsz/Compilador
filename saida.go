@@ -21,13 +21,13 @@ func main(){
 	}else{
 		y = 0
 	}
-	for y==1{
+	for y==1 {
 		y++
 		if(a=="oi"){
 			break
 		}
 	}
-	for x := 0; x<5;x++{
+	for x := 0; x<5; x++ {
 		y++
 	}
 	fmt.Println("oi", x, "a")
