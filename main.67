@@ -21,3 +21,9 @@ INICIE:
     SENAO{
         y = 0;
     }
+    ENQUANTO(y == 1){
+        y++;
+        SE(a == "oi"){
+            QUEBRE;
+        }
+    }

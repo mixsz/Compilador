@@ -51,18 +51,18 @@ public class CodeGenerator {
                 break;
             
             case "estruturaWhile":
-                // gerarEstruturaWhile(no);
+                gerarEstruturaWhile(no);
                 break;
 
             case "estruturaFor":
                 // gerarEstruturaFor(no);
                 break;
 
-            case "quebre":
+            case "QUEBRE":
                 codigo +=  tabs() + "break\n";
                 break;
 
-            case "continue":
+            case "CONTINUE":
                 codigo += tabs() + "continue\n";
                 break;
 
@@ -230,5 +230,19 @@ public class CodeGenerator {
         }
         tabs--;
         codigo += tabs() + "}\n";
+    }
+
+    private void gerarEstruturaWhile(Node no){
+        for(Node filho : no.nodes){
+            if(filho.nome.equals("condicao")){
+                codigo += tabs() + "for " + buscaFolha(filho) + "{\n";
+                tabs++;
+            }
+            else if(filho.nome.equals("bloco")){
+                gerarFilhos(filho);
+            }
+        }
+         tabs--;
+        codigo+= tabs() + "}\n";
     }
 }

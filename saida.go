@@ -19,4 +19,10 @@ func main(){
 	}else{
 		y = 0
 	}
+	for y==1{
+		y++
+		if(a=="oi"){
+			break
+		}
+	}
 }

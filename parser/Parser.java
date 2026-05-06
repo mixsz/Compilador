@@ -409,7 +409,8 @@ public class Parser{
             noComentar.addNode(token.lexema);
             token = getNextToken();
             if(token.tipo.equals("texto")){
-                noComentar.addNode(token.lexema);
+                Node noTexto = noComentar.addNode("texto");
+                noTexto.addNode(token.lexema);
                 token = getNextToken();
                 return true;
             }
