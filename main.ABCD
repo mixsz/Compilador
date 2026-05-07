@@ -31,4 +31,4 @@ INICIE:
         y++;
     }
     ESCREVA("oi" + x + "a");
-    COMENTE "OI";
+    COMENTE "OIA";

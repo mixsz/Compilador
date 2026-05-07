@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
         try{
-            String codigo = Files.readString(Path.of("main.67"));
+            String codigo = Files.readString(Path.of("main.ABCD"));
 
             System.out.println("\nTokens:");
             Lexer lexer = new Lexer(codigo);
