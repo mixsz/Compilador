@@ -6,10 +6,10 @@ import java.util.List;
 
 public class Node {
 
-    String nome;
-    List<Node> nodes;
-    String enter;
-    String exit;
+    public String nome;
+    public List<Node> nodes;
+    public String enter;
+    public String exit;
 
     public Node(String nome) {
         this.nome = nome;

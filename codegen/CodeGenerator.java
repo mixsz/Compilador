@@ -1,6 +1,9 @@
-package parser;
+package codegen;
 
 import java.util.List;
+
+import parser.Node;
+import parser.Tree;
 
 public class CodeGenerator {
     Tree arvore;

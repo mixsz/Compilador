@@ -7,6 +7,7 @@ Compilador da linguagem ABCD, desenvolvido em Java como projetode Compiladores. 
 ## Requisitos
 
 - Java JDK instalado
+- Go instalado
 
 ---
 
@@ -22,7 +23,7 @@ javac lexer/*.java parser/*.java Main.java
 ```
 java -cp . Main
 ```
-5. O código Go traduzido será salvo em `saida.go`
+5. O código Go será executado automaticamente e o resultado aparecerá no terminal
 
 ---
 

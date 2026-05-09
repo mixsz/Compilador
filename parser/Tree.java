@@ -2,7 +2,7 @@ package parser;
 
 public class Tree {
 
-    Node root;
+    public Node root;
 
     public Tree() {
     }
