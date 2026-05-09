@@ -23,7 +23,7 @@ javac lexer/*.java parser/*.java Main.java
 ```
 java -cp . Main
 ```
-5. O código Go será executado automaticamente e o resultado aparecerá no terminal
+5. O código Go será salvo em `saida.go` e executado automaticamente
 
 ---
 
