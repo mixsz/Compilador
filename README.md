@@ -1,6 +1,6 @@
 # Compilador ABCD
 
-Compilador da linguagem ABCD, desenvolvido em Java como projetode Compiladores. A linguagem ABCD é traduzida para Go, gerando o arquivo `saida.go`.
+Compilador da linguagem ABCD, desenvolvido em Java como projeto de Compiladores. A linguagem ABCD é traduzida para Go, gerando o arquivo `saida.go`.
 
 ---
 

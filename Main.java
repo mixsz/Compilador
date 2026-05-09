@@ -32,13 +32,13 @@ public class Main {
 
             //run
             try{
-                System.out.println("Output:");
+                System.out.println("_________________________________\n");
                 ProcessBuilder p = new ProcessBuilder("go", "run", "saida.go");
                 p.inheritIO();
                 Process process = p.start();
                 process.waitFor();
             }
-            catch (IOException | InterruptedException e) {
+            catch(IOException | InterruptedException e){
                 System.err.println("Erro ao executar em Go: " + e.getMessage());
             }
 
