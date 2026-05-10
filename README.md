@@ -45,13 +45,13 @@ java -cp . Main
 - Variáveis não utilizadas geram erro semântico (igual em Go)
 - Redeclaração de variável gera erro semântico
 - Operadores `-`, `*`, `/` com TEXTO geram erro semântico (`+` é permitido como concatenação)
-- Variáveis declaradas dentro de blocos não existem fora deles
+- Variáveis declaradas dentro de escopo não existem fora deles
 
 ---
 
 ## Exemplos de Código
 
-### Exemplo 1 — Soma de 1 até N
+### Exemplo 1 - Soma de 1 até N
 ```
 INICIE:
     INTEIRO soma = 0;
@@ -63,7 +63,7 @@ INICIE:
     ESCREVA("Soma:" + soma);
 ```
 
-### Exemplo 2 — Positivo, Negativo ou Zero
+### Exemplo 2 - Positivo, Negativo ou Zero
 ```
 INICIE:
     INTEIRO num = LEIA(INTEIRO);
@@ -78,7 +78,7 @@ INICIE:
     }
 ```
 
-### Exemplo 3 — Fatorial
+### Exemplo 3 - Fatorial
 ```
 INICIE:
     INTEIRO numero = LEIA(INTEIRO);
@@ -91,7 +91,7 @@ INICIE:
     COMENTE "Isso é um comentário";
 ```
 
-### Exemplo 4 — Utilização de QUEBRE e CONTINUE
+### Exemplo 4 - Utilização de QUEBRE e CONTINUE
 ```
 INICIE:
     PARA(INTEIRO i = 0; i < 10; i++){
