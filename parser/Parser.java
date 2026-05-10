@@ -293,7 +293,8 @@ public class Parser{
             return valor(noValor);
         }
         else if(token.tipo.equals("texto")){
-            noValor.addNode(token.lexema);
+            Node noTexto = noValor.addNode("texto");
+            noTexto.addNode(token.lexema);
             token = getNextToken();
             return true;
         }

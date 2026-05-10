@@ -42,6 +42,10 @@ java -cp . Main
 - Saída de dados com `ESCREVA` e entrada com `LEIA`
 - Comentários de linha com `COMENTE`
 - A linguagem é traduzida para Go, gerando o arquivo `saida.go`
+- Variáveis não utilizadas geram erro semântico (igual em Go)
+- Redeclaração de variável gera erro semântico
+- Operadores `-`, `*`, `/` com TEXTO geram erro semântico (`+` é permitido como concatenação)
+- Variáveis declaradas dentro de blocos não existem fora deles
 
 ---
 
@@ -56,7 +60,7 @@ INICIE:
     PARA(INTEIRO i = 1; i <= n; i++){
         soma = soma + i;
     }
-    ESCREVA("Soma: " + soma);
+    ESCREVA("Soma:" + soma);
 ```
 
 ### Exemplo 2 — Positivo, Negativo ou Zero
@@ -65,9 +69,11 @@ INICIE:
     INTEIRO num = LEIA(INTEIRO);
     SE(num < 0){
         ESCREVA("Negativo!");
-    }SENAOSE(num > 0){
+    }
+    SENAOSE(num > 0){
         ESCREVA("Positivo!");
-    }SENAO{
+    }
+    SENAO{
         ESCREVA("Zero!");
     }
 ```
@@ -81,5 +87,20 @@ INICIE:
         valor = valor * numero;
         numero--;
     }
-    ESCREVA("Fatorial: " + valor);
+    ESCREVA("Fatorial:" + valor);
+    COMENTE "Isso é um comentário";
+```
+
+### Exemplo 4 — Utilização de QUEBRE e CONTINUE
+```
+INICIE:
+    PARA(INTEIRO i = 0; i < 10; i++){
+        SE(i == 5){
+            CONTINUE;
+        }
+        SE(i == 8){
+            QUEBRE;
+        }
+        ESCREVA(i);
+    }
 ```

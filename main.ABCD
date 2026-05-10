@@ -1,34 +1,10 @@
 INICIE:
-    INTEIRO x = 1;
-    INTEIRO y = 2;
-    INTEIRO z = 99;
-    TEXTO a = "afafawfds";
-    SE(x<10){
-        SE(y>1 E z != 99){
-            x = 99;
+    PARA(INTEIRO i = 0; i < 10; i++){
+        SE(i == 5){
+            CONTINUE;
         }
-        SENAOSE(y==0){
-            x = 0;
-        }
-        SENAO{
-            x++;
-            a = "oi";
-        }
-    }
-    SENAOSE(x==5){
-        z = 3;
-    }
-    SENAO{
-        y = 0;
-    }
-    ENQUANTO(y == 1){
-        y++;
-        SE(a == "oi"){
+        SE(i == 8){
             QUEBRE;
         }
+        ESCREVA(i);
     }
-    PARA(INTEIRO x = 0; x < 5; x++){
-        y++;
-    }
-    ESCREVA("oi" + x + "a");
-    COMENTE "OIA";
