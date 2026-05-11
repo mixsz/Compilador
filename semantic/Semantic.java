@@ -179,13 +179,10 @@ public class Semantic{
         if(no.nome.equals("estruturaWhile")){ // verifica while pra ativar o uso do break e continue
             loop = true;
         }
-
+        pilha.push(new HashMap<>());
         for(Node filho : no.nodes){
             if(filho.nome.equals("bloco")){
-                pilha.push(new HashMap<>());
                 analisarNo(filho);
-                verificarUso();
-                pilha.pop();
             }
             else if(filho.nome.equals("condicao")){
                 analisarExpressao(filho);
@@ -200,6 +197,8 @@ public class Semantic{
                 analisarNo(filho);
             }
         }
+        verificarUso();
+        pilha.pop();
         loop = eraLoop;
     }
 

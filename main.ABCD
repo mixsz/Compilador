@@ -1,10 +1,5 @@
 INICIE:
-    PARA(INTEIRO i = 0; i < 10; i++){
-        SE(i == 5){
-            CONTINUE;
-        }
-        SE(i == 8){
-            QUEBRE;
-        }
-        ESCREVA(i);
-    }
+    INTEIRO x = 10;
+    INTEIRO y = 0;
+    INTEIRO z = x / y;
+    ESCREVA(z);
