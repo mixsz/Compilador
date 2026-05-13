@@ -16,7 +16,7 @@ Compilador da linguagem ABCD, desenvolvido em Java como projeto de Compiladores.
 1. Acesse o repositório em [https://github.com/mixsz/Compilador](https://github.com/mixsz/Compilador) e instale em sua máquina (ZIP ou git clone)
 2. Compile com:
 ```
-javac lexer/*.java parser/*.java Main.java
+javac */*.java Main.java
 ```
 3. Escreva seu código no arquivo `main.ABCD`
 4. Execute com:
