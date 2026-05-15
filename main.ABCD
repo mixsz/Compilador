@@ -1,5 +1,8 @@
 INICIE:
-    INTEIRO x = 10;
-    INTEIRO y = 0;
-    INTEIRO z = x / y;
-    ESCREVA(z);
+    INTEIRO x = 1;
+    SE(x > 0){
+        INTEIRO y = 10;
+    }
+    SENAO{
+        ESCREVA(y);
+    }
