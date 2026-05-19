@@ -182,18 +182,21 @@ public class Semantic{
         pilha.push(new HashMap<>());
         for(Node filho : no.nodes){
             if(filho.nome.equals("bloco")){
-                pilha.push(new HashMap<>());  // escopo do bloco
                 analisarNo(filho);
-                verificarUso();
-                pilha.pop();
             }
             else if(filho.nome.equals("condicao")){
                 analisarExpressao(filho);
             }
             else if(filho.nome.equals("estruturaElseif")){ 
-                analisarBloco(filho); // reutiliza
+                verificarUso();
+                pilha.pop();       
+                pilha.push(new HashMap<>());
+                analisarBloco(filho);
             }
             else if(filho.nome.equals("estruturaElse")){ 
+                verificarUso();
+                pilha.pop();       
+                pilha.push(new HashMap<>()); 
                 analisarBloco(filho);
             }
             else{

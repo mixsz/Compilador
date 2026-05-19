@@ -1,8 +1,5 @@
 INICIE:
-    INTEIRO x = 1;
-    SE(x > 0){
-        INTEIRO y = 10;
-    }
-    SENAO{
-        ESCREVA(y);
-    }
+  PARA(INTEIRO i = 0; i > 10; i++){
+    ESCREVA(i);
+}
+ESCREVA(i);
