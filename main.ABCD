@@ -1,5 +1,4 @@
 INICIE:
-  PARA(INTEIRO i = 0; i > 10; i++){
+  PARA(INTEIRO i = 0; i <= 10; i++){
     ESCREVA(i);
-}
-ESCREVA(i);
+  }

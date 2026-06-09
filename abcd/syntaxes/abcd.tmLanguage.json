@@ -1,0 +1,132 @@
+{
+  "name": "ABCD",
+  "scopeName": "source.abcd",
+  "patterns": [
+    { "include": "#comentario" },
+    { "include": "#string" },
+    { "include": "#numero" },
+    { "include": "#inicie" },
+    { "include": "#tipos" },
+    { "include": "#controle" },
+    { "include": "#io" },
+    { "include": "#operadores_logicos" },
+    { "include": "#operadores_relac" },
+    { "include": "#operadores_arit" },
+    { "include": "#operadores_atrib" },
+    { "include": "#incremento" },
+    { "include": "#identificador" },
+    { "include": "#pontuacao" }
+  ],
+  "repository": {
+
+    "comentario": {
+      "comment": "COMENTE \"texto\"; -- linha inteira vira comentário",
+      "name": "comment.line.abcd",
+      "match": "COMENTE\\s+\"[^\"]*\"\\s*;"
+    },
+
+    "string": {
+      "comment": "Literais de texto entre aspas duplas",
+      "name": "string.quoted.double.abcd",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": []
+    },
+
+    "numero": {
+      "comment": "Literais numéricos inteiros e decimais",
+      "patterns": [
+        {
+          "name": "constant.numeric.float.abcd",
+          "match": "\\b[0-9]+\\.[0-9]+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.abcd",
+          "match": "\\b[0-9]+\\b"
+        }
+      ]
+    },
+
+   "inicie": {
+      "comment": "Palavra-chave de início do programa com os dois pontos",
+      "name": "keyword.control.abcd",
+      "match": "INICIE:"
+    },
+
+    "tipos": {
+      "comment": "Tipos de variável: INTEIRO, DECIMAL, TEXTO",
+      "name": "storage.type.abcd",
+      "match": "\\b(INTEIRO|DECIMAL|TEXTO)\\b"
+    },
+
+    "controle": {
+      "comment": "Estruturas de controle de fluxo",
+      "name": "keyword.control.abcd",
+      "match": "\\b(SE|SENAOSE|SENAO|ENQUANTO|PARA|QUEBRE|CONTINUE)\\b"
+    },
+
+    "io": {
+      "comment": "Funções de entrada e saída",
+      "name": "support.function.abcd",
+      "match": "\\b(ESCREVA|LEIA)\\b"
+    },
+
+    "operadores_logicos": {
+      "comment": "Operadores lógicos E, OU",
+      "name": "keyword.operator.logical.abcd",
+      "match": "\\b(E|OU)\\b"
+    },
+
+    "operadores_relac": {
+      "comment": "Operadores relacionais ==, !=, <, >, <=, >=",
+      "name": "keyword.operator.comparison.abcd",
+      "match": "(==|!=|<=|>=|<|>)"
+    },
+
+    "operadores_arit": {
+      "comment": "Operadores aritméticos +, -, *, /",
+      "name": "keyword.operator.arithmetic.abcd",
+      "match": "[+\\-*/]"
+    },
+
+    "operadores_atrib": {
+      "comment": "Operador de atribuição =",
+      "name": "keyword.operator.assignment.abcd",
+      "match": "(?<![=!<>])=(?!=)"
+    },
+
+    "incremento": {
+      "comment": "Operadores de incremento/decremento ++ e --",
+      "name": "keyword.operator.increment.abcd",
+      "match": "(\\+\\+|--)"
+    },
+
+    "identificador": {
+      "comment": "Identificadores: começam com letra minúscula",
+      "name": "variable.other.abcd",
+      "match": "\\b[a-z][a-zA-Z0-9]*\\b"
+    },
+
+    "pontuacao": {
+      "comment": "Pontuação: ; : { } ( )",
+      "patterns": [
+        {
+          "name": "punctuation.terminator.abcd",
+          "match": ";"
+        },
+        {
+          "name": "punctuation.separator.abcd",
+          "match": ":"
+        },
+        {
+          "name": "punctuation.definition.block.abcd",
+          "match": "[{}]"
+        },
+        {
+          "name": "punctuation.definition.parameters.abcd",
+          "match": "[()]"
+        }
+      ]
+    }
+  }
+}

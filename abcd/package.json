@@ -1,0 +1,27 @@
+{
+  "name": "abcd-lang",
+  "displayName": "ABCD Language",
+  "description": "Syntax highlighting para a linguagem ABCD",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [
+      {
+        "id": "abcd",
+        "aliases": ["ABCD", "abcd"],
+        "extensions": [".ABCD"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "abcd",
+        "scopeName": "source.abcd",
+        "path": "./syntaxes/abcd.tmLanguage.json"
+      }
+    ]
+  }
+}
