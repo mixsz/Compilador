@@ -1,4 +1,9 @@
 INICIE:
-  PARA(INTEIRO i = 0; i <= 10; i++){
-    ESCREVA(i);
+  TEXTO x = LEIA(TEXTO);
+  TEXTO z = LEIA(INTEIRO);
+  SE(z<10){
+    ESCREVA("z menor que 10"); COMENTE "legal";
+  }
+  SENAO{
+    ESCREVA(x); COMENTE "wow";
   }

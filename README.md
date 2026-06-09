@@ -58,7 +58,7 @@ Para ter syntax highlighting (tokens com cores) no VSCode:
 1. Clique com o botão direito no arquivo `abcd-lang-1.0.0.vsix`
 2. Clique em `Install Extension VSIX`
 
-> Se quiser editar as cores, modifique `abcd/syntaxes/abcd.tmLanguage.json`, entre na pasta `abcd/` e rode `vsce package --allow-missing-repository` para gerar um novo `.vsix`.
+> Se quiser editar as cores, modifique `abcd/syntaxes/abcd.tmLanguage.json`, entre na pasta `abcd/` e rode `vsce package --allow-missing-repository` para gerar um novo `.vsix`. É necessário ter o `vsce` instalado: `npm install -g @vscode/vsce`
 
 ---
 
